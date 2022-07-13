@@ -11,6 +11,7 @@ import { ButtonNext } from '../Button';
 import { Notify } from 'notiflix';
 import { ScrollUp } from '../ScrollUp';
 
+
 const modalRoot = document.querySelector('#modal-root');
 const PER_PAGE = 12;
 
@@ -41,7 +42,7 @@ export class App extends PureComponent {
       this.setState({ loader: true });
       ServiceAPI(text, page).then(data => {
           if (data.hits.length < 1) {
-              Notify.error('Oops, we did not find anything (');
+              Notify.error('Oops, we did not find anything');
         }
 
         this.setState(prevState => {

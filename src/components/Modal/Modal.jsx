@@ -32,14 +32,15 @@ export class Modal extends Component {
     return createPortal(
       <Backdrop onClick={this.handleBackdropClose}>
         <ModalWindow>
-          <ModalImage src={largeImage} alt={tags} />
+          <ModalImage src={largeImage} alt="" />
           <Description>description: {tags}</Description>
         </ModalWindow>
       </Backdrop>,
       modalRoot
     );
-    }
+  }
 }
+
 Modal.propTypes = {
   largeImage: PropTypes.string.isRequired,
   tags: PropTypes.string.isRequired,
