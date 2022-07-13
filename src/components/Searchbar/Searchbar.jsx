@@ -6,7 +6,7 @@ import {
   SearchFormButton,
   InputSearch,
 } from './Searchbar.styled';
-import { HiOutlineSearch } from "react-icons/hi";
+import { BsSearch } from 'react-icons/bs';
 import { Notify } from 'notiflix';
 
 export class Searchbar extends PureComponent {
@@ -36,7 +36,7 @@ export class Searchbar extends PureComponent {
             <Header>
                 <SearchForm onSubmit={this.onSubmitForm}>
                     <SearchFormButton type="submit">
-                        <HiOutlineSearch />
+                        <BsSearch />
                     </SearchFormButton>
                     <InputSearch type="text" placeholder="Search images and photos" value={this.state.text} onChange={this.handelInputChange} />
                 </SearchForm>

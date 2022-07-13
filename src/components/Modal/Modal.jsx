@@ -1,29 +1,47 @@
-import { PureComponent } from 'react';
+import { Component } from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import { Overlay, Modal } from './Modal.styled';
+import { Backdrop, ModalWindow, ModalImage, Description } from './Modal.styled';
 
-export class Modals extends PureComponent {
+const modalRoot = document.querySelector('#modal-root');
+
+export class Modal extends Component {
   componentDidMount() {
-    const { closeModal } = this.props;
-    window.addEventListener('keydown', closeModal);
-    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', this.handleEscClose);
   }
+
   componentWillUnmount() {
-    const { closeModal } = this.props;
-    window.removeEventListener('keydown', closeModal);
-    document.body.style.overflow = ' visible';
+    window.removeEventListener('keydown', this.handleEscClose);
   }
+
+  handleEscClose = e => {
+    if (e.code === 'Escape') {
+      this.props.onClose();
+    }
+  };
+
+  handleBackdropClose = e => {
+    if (e.currentTarget === e.target) {
+      this.props.onClose();
+    }
+  };
+
   render() {
-    const { tags, img, closeModal } = this.props;
+    const { largeImage, tags } = this.props;
 
-    return (
-      <Overlay onClick={closeModal}>
-        <Modal src={`${img}`} alt={`${tags}`} />
-      </Overlay>
+    return createPortal(
+      <Backdrop onClick={this.handleBackdropClose}>
+        <ModalWindow>
+          <ModalImage src={largeImage} alt={tags} />
+          <Description>description: {tags}</Description>
+        </ModalWindow>
+      </Backdrop>,
+      modalRoot
     );
-  }
+    }
 }
-
-Modals.propTypes = {
-  closeModal: PropTypes.func.isRequired,
+Modal.propTypes = {
+  largeImage: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
 };

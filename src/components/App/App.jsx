@@ -6,9 +6,10 @@ import { Searchbar } from '../Searchbar';
 import { ImageGallery } from '../ImageGallery';
 import { ServiceAPI } from '../../service/Api';
 import { Loader } from '../Loader';
-import { Modals } from '../Modal';
+import { Modal } from '../Modal';
 import { ButtonNext } from '../Button';
 import { Notify } from 'notiflix';
+import { ScrollUp } from '../ScrollUp';
 
 const modalRoot = document.querySelector('#modal-root');
 const PER_PAGE = 12;
@@ -79,7 +80,7 @@ export class App extends PureComponent {
       <Container>
         {showModal &&
           createPortal(
-            <Modals img={modalImg} alt={tags} closeModal={this.toggleModal} />,
+            <Modal img={modalImg} alt={tags} closeModal={this.toggleModal} />,
             modalRoot
           )}
 
@@ -93,7 +94,8 @@ export class App extends PureComponent {
 
         {totalHits > page * PER_PAGE && (
           <ButtonNext getNextPage={this.getNextPage} />
-        )}
+            )}
+             <ScrollUp smooth />
       </Container>
     );
   }
