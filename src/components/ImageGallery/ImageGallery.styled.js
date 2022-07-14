@@ -26,3 +26,21 @@ transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
     cursor: zoom-in;
   }
 `;
+
+export const InfoWrapper = styled.div`
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+ 
+`;
+export const Info = styled.p`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+export const Comments = styled.b`
+  color: #3f51b5;
+  font-size: 14px;
+`;
