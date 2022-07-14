@@ -1,6 +1,5 @@
 import ScrollToTop from "react-scroll-to-top";
 
-
 export function ScrollUp() {
   return (
     <div>

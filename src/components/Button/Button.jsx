@@ -5,7 +5,7 @@ export function ButtonNext({ getNextPage }) {
     return (
         <BtnLoad type="button" onClick={() => getNextPage()}>
             Load more
-        </BtnLoad>
+        </BtnLoad>      
     );
 }
 

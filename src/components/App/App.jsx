@@ -1,18 +1,16 @@
 import { PureComponent } from 'react';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import { createPortal } from 'react-dom';
 import { Container } from './App.styled';
 import { Searchbar } from '../Searchbar';
 import { ImageGallery } from '../ImageGallery';
 import { ServiceAPI } from '../../service/Api';
 import { Loader } from '../Loader';
-import { Modal } from '../Modal';
+import { Modals } from '../Modal';
 import { ButtonNext } from '../Button';
 import { Notify } from 'notiflix';
 import { ScrollUp } from '../ScrollUp';
 
 
-const modalRoot = document.querySelector('#modal-root');
 const PER_PAGE = 12;
 
 export class App extends PureComponent {
@@ -44,6 +42,9 @@ export class App extends PureComponent {
           if (data.hits.length < 1) {
               Notify.error('Oops, we did not find anything');
         }
+        if (data.totalHits !== 0 && data.hits.length !== 0) {
+          Notify.success(`Hooray! We found ${data.totalHits} images.`);
+        }
 
         this.setState(prevState => {
           return {
@@ -72,6 +73,7 @@ export class App extends PureComponent {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
+    Notify.info('Wait a minute, we are looking for images');
   };
 
   render() {
@@ -80,9 +82,7 @@ export class App extends PureComponent {
     return (
       <Container>
         {showModal &&
-          createPortal(
-            <Modal img={modalImg} alt={tags} closeModal={this.toggleModal} />,
-            modalRoot
+          (<Modals img={modalImg} alt={tags} closeModal={this.toggleModal} tags={tags} />
           )}
 
         <Searchbar onSubmit={this.onSearchText} />
